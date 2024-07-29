@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .modal-form {
+    @apply flex flex-col justify-center py-12 px-10 items-center bg-white sm:w-[320px] md:w-[400px] rounded-3xl shadow-xl;
+  }
+
+  .modal-container {
+    @apply w-full flex justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .modal-error {
+    @apply bg-[#EBE5FC] w-full absolute text-lg py-3 px-4 rounded-xl -mt-[420px] text-[#290661] flex justify-center;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .button-animation {
+    transition: all 0.3s ease-in-out;
+  }
+}
