@@ -1,19 +1,22 @@
 "use client"
 import { useState, useEffect, createContext } from "react"
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
+export const AuthContext = createContext({
+    isAuth: false,
+    isLoading: true
+})
 
-export const AuthContext = createContext()
-
-function AuthProvider({ children }) {
-    const userToken = typeof window !== "undefined" ? window.localStorage.getItem('token') : null
-    const savedUser = typeof window !== "undefined" ? window.localStorage.getItem('user') : null
+function AuthProvider({ children }: React.PropsWithChildren<{}>) {
+    const userToken = cookies.get("token")
 
     const [isLoading, setIsLoading] = useState(true)
     const [isAuth, setIsAuth] = useState(false)
 
     useEffect(() => {
-        setIsAuth(!!userToken || !!savedUser)
+        setIsAuth(!!userToken)
         setIsLoading(false)
-    }, [savedUser, userToken]);
+    }, [userToken]);
 
     return (
         <AuthContext.Provider

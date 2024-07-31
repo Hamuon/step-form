@@ -21,9 +21,9 @@ const StepForm = () => {
         case 1:
             return <LoginModal setPhone={setPhone} nextStep={nextStep} />;
         case 2:
-            return <OtpModal phone={phone} prevStep={prevStep} />;
+            return <OtpModal phone={phone} />;
         default:
-            return <LoginModal nextStep={nextStep} />
+            return <LoginModal setPhone={setPhone} nextStep={nextStep} />
 
     }
 };

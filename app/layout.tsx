@@ -10,7 +10,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <Image src="/sms.gif" alt="background" fill className="fixed object-cover" />
+          <Image src="/media/sms.gif" alt="background" fill className="fixed object-cover" />
           {children}
         </AuthProvider>
       </body>

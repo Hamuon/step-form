@@ -1,5 +1,4 @@
 "use client"
-import { z } from 'zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { getOtp } from '@/services/authService'
@@ -8,21 +7,21 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import SubmitButton from '@/components/atoms/buttons/SubmitButton'
 import useLoading from '@/hooks/useLoading';
 import { useOtpRequest } from '@/utils/useOtpRequest';
+import { MobileSchema } from '@/utils/schemas'
 
-const schema = z.object({
-    mobile: z.string().min(1, { message: "Phone number is required." }).max(11, { message: "Phone number can't be more than 11 character." }).regex(/^09[0-9][0-9]-?[0-9]{3}-?[0-9]{4}$/, { message: "Invalid phone number." }),
-})
-export default function LoginModal({ nextStep, setPhone }) {
+type LoginModalProps = {
+    nextStep: () => void,
+    setPhone: (mobile: string) => void
+}
+export default function LoginModal({ nextStep, setPhone }: LoginModalProps) {
 
     const { loading, setLoading } = useLoading()
+    const submitHandler: any = useOtpRequest(setPhone, setLoading, getOtp, nextStep)
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
-            resolver: zodResolver(schema)
+            resolver: zodResolver(MobileSchema)
         }
     )
-
-
-    const submitHandler = useOtpRequest(setPhone, setLoading, getOtp, nextStep)
 
     return (
         <div className='modal-container'>

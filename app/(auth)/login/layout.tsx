@@ -1,12 +1,17 @@
 "use client"
+import React from 'react';
+import { useState, useEffect } from 'react'
 import StepForm from '@/components/StepForm';
 import { usePathname } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import React, { useState, useEffect } from 'react'
 import AuthProvider from '@/context/AuthProvider';
-import ProtectLogin from '@/components/ProtectLogin';
-export default function AuthLayout({ children }) {
+export default function AuthLayout(
+    { children }
+        : Readonly<{
+            children: React.ReactNode;
+        }>
+) {
 
     const pathname = usePathname();
     const [showLogin, setShowLogin] = useState(pathname === "/login" ? true : false);
@@ -21,14 +26,12 @@ export default function AuthLayout({ children }) {
     }, [pathname])
 
     return (
-        <ProtectLogin>
-            <AuthProvider>
-                <ToastContainer />
-                {
-                    showLogin ? <StepForm /> : null
-                }
-                {children}
-            </AuthProvider>
-        </ProtectLogin>
+        <AuthProvider>
+            <ToastContainer />
+            {
+                showLogin ? <StepForm /> : null
+            }
+            {children}
+        </AuthProvider>
     )
 }
